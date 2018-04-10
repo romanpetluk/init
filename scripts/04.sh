@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-md5=$(md5sum -c /home/user/init/scripts/temp.md5)
-ok=$"/home/user/init/scripts/temp.md5: OK"
-md5sum /etc/crontab > /home/user/init/scripts/04.sh | crontab -
-if [ "$md5" != "$ok" ];
+sudo md5sum /etc/crontab > t.md5
+var=$(md5sum -c t.md5)
+if [ "$var" != "/etc/crontab: OK" ];
 then
-echo "changes" | mail -s "crontab" root
+    sudo echo "file has been changed" | sudo mail -s "report" root
 fi
+echo "0 0 * * * /home/user/init/scripts/04.sh" | crontab -
